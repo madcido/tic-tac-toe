@@ -11,7 +11,7 @@ class Board
     puts " #{@tiles[6]} | #{@tiles[7]} | #{@tiles[8]} "
   end
 
-  
+
 
   def write (tile, mark)
     @tiles[tile-1] = mark
@@ -32,7 +32,7 @@ class Player
     @inputs = []
   end
 
-  def input (input)
+  def save (input)
     @inputs << input
   end
 
@@ -51,7 +51,7 @@ class Player
 
   def score_up
     @score += 1
-  end    
+  end
 end
 
 def victory? (player_inputs)

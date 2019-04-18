@@ -1,9 +1,5 @@
 #!/usr/bin/env ruby
 require '../lib/logic.rb'
-board = Board.new
-userX = Player.new("X")
-userO = Player.new("O")
-
 
 puts "**************************************************"
 puts "*                                                *"
@@ -16,53 +12,70 @@ puts "*     |_| | |_   |_| |_| |_   |_| |_| |_   o     *"
 puts "*                                                *"
 puts "**************************************************"
 
-
+userX = Player.new("X")
+userO = Player.new("O")
 
 play_again = true
+
 while play_again
-board = Board.new
-board.show
-loop do 
-    puts "Make your first move Player X"
-    tiles = gets.chomp.to_i
-    userX.input(tiles)
-    board.write(tiles, userX.mark)
+
+  board = Board.new
+  puts "\n"
+  board.show
+
+  loop do
+    puts "\nPlayer X, choose a tile!"
+    chosen_tile = gets.chomp.to_i
+    userX.save(chosen_tile)
+    board.write(chosen_tile, userX.mark)
+    puts "\n"
     board.show
-    if victory?(userX.inputs) 
-        userX.score_up
-        puts "Victory! yay"
-       break
+    if victory?(userX.inputs)
+      userX.score_up
+      puts "\nPlayer X wins, congratulations!"
+      break
     end
-    puts "Make your first move Player O"
-    tiles = gets.chomp.to_i
-    userO.input(tiles)
-    board.write(tiles, userO.mark)
+
+    puts "\nPlayer O, choose a tile!"
+    chosen_tile = gets.chomp.to_i
+    userO.save(chosen_tile)
+    board.write(chosen_tile, userO.mark)
+    puts "\n"
     board.show
     if victory?(userO.inputs)
-        userO.score_up
-        puts "Victory! yay"
-        break
+      userO.score_up
+      puts "\nPlayer O wins, congratulations!"
+      break
     end
+  end #of turns loop
 
+  valid_input = false
+  until valid_input
+    puts "\nPlay again? Y/N"
+    input = gets.chomp.upcase
+    if input == "Y" || input == "YES"
+      valid_input = true
+      userX.reset
+      userO.reset
+    elsif input == "N" || input == "NO"
+      valid_input = true
+      play_again = false
+    else
+      puts "Invalid input. Please type Y or N."
+    end
+  end #of until valid input
 
-end
-puts "do you want toplay again? Please write Y or N"
-input = gets.chomp
-if input == 'Y'
-    play_again = true
-    userX.reset
-    userO.reset
+end #of while play again
+
+puts "\n**************************************************"
+puts "\nGame over, final score:"
+puts "\nPlayer X: #{userX.score}"
+puts "Player O: #{userO.score}"
+if userX.score > userO.score
+  puts "\nPlayer X wins!"
+elsif userX.score < userO.score
+  puts "\nPlayer O wins!"
 else
-    play_again = false 
-    if userX.score > userO.score 
-      p "Player X wins!" 
-    elsif userX.score < userO.score
-        p "Player O wins!"
-    elsif userX.score == userO.score
-        puts "Tie!" 
-    end  
-end #if
-
-end #while loop
-
-
+  puts "\nTie!"
+end
+puts "\n"
