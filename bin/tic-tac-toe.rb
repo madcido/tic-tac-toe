@@ -17,7 +17,7 @@ puts "*     |_| | |_   |_| |_| |_   |_| |_| |_   o     *"
 puts "*                                                *"
 puts "**************************************************"
 
-
+moves = 0
 
 while userX
     puts "Make your first move Player X"
@@ -26,13 +26,13 @@ while userX
     board.write(tiles, userX.mark)
     board.show
     p userX.inputs
-    break if victory?(userX.inputs)
+   break if moves == 3
     puts "Make your first move Player O"
     tiles = gets.chomp.to_i
     userO.input(tiles)
     board.write(tiles, userO.mark)
     board.show
-    break if victory?(userO.inputs)     
+      
 
 end
 
