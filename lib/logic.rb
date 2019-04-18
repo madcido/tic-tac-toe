@@ -33,23 +33,27 @@ class Player
   def input (input)
     @inputs << input
   end
-end
 
-
-module Checks
-  V_CONDITIONS = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8], [3,6,9], [1,5,9], [3,5,7]]
-
-  def valid?
-    case self
-    when (1..9)
-      return true
+  def valid? (input)
+    if 1 <= input && input <= 9
+      @inputs.each { |x| return false if input == x }
     else
       return false
     end
+    true
   end
 
-  def victory? (player_inputs)
-    V_CONDITIONS.each { |x| return true if player_inputs.any?(x[0]) && player_inputs.any?(x[1]) && player_inputs.any?(x[2])}
-    false
+  def reset
+    @inputs = []
   end
+
+  def score_up
+    @score += 1
+  end    
+end
+
+def victory? (player_inputs)
+  V_CONDITIONS = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8], [3,6,9], [1,5,9], [3,5,7]]
+  V_CONDITIONS.each { |x| return true if player_inputs.any?(x[0]) && player_inputs.any?(x[1]) && player_inputs.any?(x[2]) }
+  false
 end
