@@ -26,20 +26,15 @@ while userX
     board.write(tiles, userX.mark)
     board.show
     p userX.inputs
-   break if moves == 3
+    break if victory?(userX.inputs)
     puts "Make your first move Player O"
     tiles = gets.chomp.to_i
     userO.input(tiles)
     board.write(tiles, userO.mark)
     board.show
-      
+    break if victory?(userO.inputs)
+
 
 end
 
-
-
-
-
-
-
-
+puts "Victory! yay"
