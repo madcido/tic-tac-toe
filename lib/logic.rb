@@ -11,8 +11,6 @@ class Board
     puts " #{@tiles[6]} | #{@tiles[7]} | #{@tiles[8]} "
   end
 
-
-
   def write (tile, mark)
     @tiles[tile-1] = mark
   end
