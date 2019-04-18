@@ -11,6 +11,8 @@ class Board
     puts " #{@tiles[6]} | #{@tiles[7]} | #{@tiles[8]} "
   end
 
+  
+
   def write (tile, mark)
     @tiles[tile-1] = mark
   end
@@ -53,7 +55,7 @@ class Player
 end
 
 def victory? (player_inputs)
-  V_CONDITIONS = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8], [3,6,9], [1,5,9], [3,5,7]]
-  V_CONDITIONS.each { |x| return true if player_inputs.any?(x[0]) && player_inputs.any?(x[1]) && player_inputs.any?(x[2]) }
+  v_conditions = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8], [3,6,9], [1,5,9], [3,5,7]]
+  v_conditions.each { |x| return true if player_inputs.any?(x[0]) && player_inputs.any?(x[1]) && player_inputs.any?(x[2]) }
   false
 end
