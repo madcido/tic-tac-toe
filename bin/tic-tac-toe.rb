@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 require '../lib/logic.rb'
-include Checks
 board = Board.new
 userX = Player.new("X")
 userO = Player.new("O")
@@ -17,24 +16,53 @@ puts "*     |_| | |_   |_| |_| |_   |_| |_| |_   o     *"
 puts "*                                                *"
 puts "**************************************************"
 
-moves = 0
 
-while userX
+
+play_again = true
+while play_again
+board = Board.new
+board.show
+loop do 
     puts "Make your first move Player X"
     tiles = gets.chomp.to_i
     userX.input(tiles)
     board.write(tiles, userX.mark)
     board.show
-    p userX.inputs
-    break if victory?(userX.inputs)
+    if victory?(userX.inputs) 
+        userX.score_up
+        puts "Victory! yay"
+       break
+    end
     puts "Make your first move Player O"
     tiles = gets.chomp.to_i
     userO.input(tiles)
     board.write(tiles, userO.mark)
     board.show
-    break if victory?(userO.inputs)
+    if victory?(userO.inputs)
+        userO.score_up
+        puts "Victory! yay"
+        break
+    end
 
 
 end
+puts "do you want toplay again? Please write Y or N"
+input = gets.chomp
+if input == 'Y'
+    play_again = true
+    userX.reset
+    userO.reset
+else
+    play_again = false 
+    if userX.score > userO.score 
+      p "Player X wins!" 
+    elsif userX.score < userO.score
+        p "Player O wins!"
+    elsif userX.score == userO.score
+        puts "Tie!" 
+    end  
+end #if
 
-puts "Victory! yay"
+end #while loop
+
+
