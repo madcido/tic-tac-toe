@@ -16,7 +16,8 @@ class Board
   end
 
   def full?
-
+    return false if @tiles.any?(1..9)
+    true
   end
 end
 
@@ -50,9 +51,5 @@ module Checks
   def victory? (player_inputs)
     V_CONDITIONS.each { |x| return true if player_inputs.any?(x[0]) && player_inputs.any?(x[1]) && player_inputs.any?(x[2])}
     false
-  end
-
-  def tie?
-
   end
 end
