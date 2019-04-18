@@ -22,7 +22,7 @@ class Board
 end
 
 class Player
-  attr_reader :score, :inputs
+  attr_reader :score, :inputs, :mark
 
   def initialize (mark)
     @mark = mark
