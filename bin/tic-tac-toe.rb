@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
-require '../lib/logic.rb'
+require '../lib/board.rb'
+require '../lib/player.rb'
 
 puts "**************************************************"
 puts "*                                                *"
@@ -14,16 +15,17 @@ puts "**************************************************"
 
 userX = Player.new("X")
 userO = Player.new("O")
+active_player = rand()*10 < 5 ? userO : userX
 
 play_again = true
 
 while play_again
 
   board = Board.new
+
   puts "\n"
   board.show
-
-  active_player = active_player == userX ? userO : userX
+  puts "\nPlayer #{active_player.mark} will start this match!"
 
   loop do
     puts "\nPlayer #{active_player.mark}, choose a tile!"
@@ -48,6 +50,7 @@ while play_again
       valid_input = true
       userX.reset
       userO.reset
+      active_player = active_player == userX ? userO : userX
     elsif input == "N" || input == "NO"
       valid_input = true
       play_again = false
