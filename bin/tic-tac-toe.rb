@@ -22,10 +22,9 @@ puts "The final score will be shown at the end of the game."
 
 userX = Player.new("X")
 userO = Player.new("O")
-active_player = rand()*10 < 5 ? userO : userX
+active_player = rand()*10 < 5 ? userO : userX #this randomly chooses the starting player
 
 play_again = true
-
 while play_again
 
   board = Board.new
@@ -34,30 +33,43 @@ while play_again
   board.show
   puts "\nPlayer #{active_player.mark} will start this match!"
 
-  loop do
-    puts "\nPlayer #{active_player.mark}, choose a tile!"
-    chosen_tile = gets.chomp.to_i
-    active_player.save(chosen_tile)
-    board.write(chosen_tile, active_player.mark)
-    puts "\n"
-    board.show
-    if active_player.victory?
+  loop do #start of turn
+
+    valid_input = false
+    until valid_input
+      puts "\nPlayer #{active_player.mark}, choose a tile!"
+      chosen_tile = gets.chomp.to_i
+      if userX.valid?(chosen_tile) && userO.valid?(chosen_tile) #check for valid tile, i.e it exists and has not yet been taken
+        valid_input = true
+        active_player.save(chosen_tile)
+        board.write(chosen_tile, active_player.mark)
+        puts "\n"
+        board.show
+      else
+        puts "\nInvalid input. Please choose a valid tile."
+      end
+    end #of input validation for player turn
+
+    if active_player.victory? #check for victory
       active_player.score_up
       puts "\nPlayer #{active_player.mark} wins, congratulations!"
       break
     end
-    if board.full?
+
+    if board.full? #check for tie
       puts "\nNo more available tiles in the board. It's a tie!"
       break
     end
-    active_player = active_player == userX ? userO : userX
-  end #of turns loop
+
+    active_player = active_player == userX ? userO : userX #swap the active player, changing turns
+
+  end #end of turn
 
   valid_input = false
   until valid_input
     puts "\nPlay again? Y/N"
     input = gets.chomp.upcase
-    if input == "Y" || input == "YES"
+    if input == "Y" || input == "YES" #if play again, reset the players' inputs and change the active player
       valid_input = true
       userX.reset
       userO.reset
@@ -68,7 +80,7 @@ while play_again
     else
       puts "Invalid input. Please type Y or N."
     end
-  end #of until valid input
+  end #of input validation for play again
 
 end #of while play again
 
