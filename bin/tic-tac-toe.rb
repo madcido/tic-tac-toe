@@ -46,7 +46,7 @@ while play_again
         puts "\n"
         board.show
       else
-        puts "\nInvalid input. Please choose a valid tile."
+        puts "Invalid input. Please choose a valid tile."
       end
     end #of input validation for player turn
 
