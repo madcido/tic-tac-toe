@@ -23,30 +23,21 @@ while play_again
   puts "\n"
   board.show
 
-  loop do
-    puts "\nPlayer X, choose a tile!"
-    chosen_tile = gets.chomp.to_i
-    userX.save(chosen_tile)
-    board.write(chosen_tile, userX.mark)
-    puts "\n"
-    board.show
-    if victory?(userX.inputs)
-      userX.score_up
-      puts "\nPlayer X wins, congratulations!"
-      break
-    end
+  active_player = active_player == userX ? userO : userX
 
-    puts "\nPlayer O, choose a tile!"
+  loop do
+    puts "\nPlayer #{active_player.mark}, choose a tile!"
     chosen_tile = gets.chomp.to_i
-    userO.save(chosen_tile)
-    board.write(chosen_tile, userO.mark)
+    active_player.save(chosen_tile)
+    board.write(chosen_tile, active_player.mark)
     puts "\n"
     board.show
-    if victory?(userO.inputs)
-      userO.score_up
-      puts "\nPlayer O wins, congratulations!"
+    if active_player.victory?
+      active_player.score_up
+      puts "\nPlayer #{active_player.mark} wins, congratulations!"
       break
     end
+    active_player = active_player == userX ? userO : userX
   end #of turns loop
 
   valid_input = false

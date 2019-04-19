@@ -43,6 +43,12 @@ class Player
     true
   end
 
+  def victory?
+    v_conditions = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8], [3,6,9], [1,5,9], [3,5,7]]
+    v_conditions.each { |x| return true if @inputs.any?(x[0]) && @inputs.any?(x[1]) && @inputs.any?(x[2]) }
+    false
+  end
+
   def reset
     @inputs = []
   end
@@ -50,10 +56,4 @@ class Player
   def score_up
     @score += 1
   end
-end
-
-def victory? (player_inputs)
-  v_conditions = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8], [3,6,9], [1,5,9], [3,5,7]]
-  v_conditions.each { |x| return true if player_inputs.any?(x[0]) && player_inputs.any?(x[1]) && player_inputs.any?(x[2]) }
-  false
 end
