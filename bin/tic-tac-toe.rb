@@ -2,6 +2,7 @@
 require '../lib/board.rb'
 require '../lib/player.rb'
 
+puts "\n"
 puts "**************************************************"
 puts "*                                                *"
 puts "*       Let's Play                               *"
@@ -12,6 +13,12 @@ puts "*     | | o |    | |  _| |    | | | | |_|  |/    *"
 puts "*     |_| | |_   |_| |_| |_   |_| |_| |_   o     *"
 puts "*                                                *"
 puts "**************************************************"
+puts "\n"
+puts "Welcome! On each turn, the player must choose a number"
+puts "corresponding to the board tile he wants to mark."
+puts "The first player to place three marks in a straight line"
+puts "wins the match. You can play as many matches as you want."
+puts "The final score will be shown at the end of the game."
 
 userX = Player.new("X")
 userO = Player.new("O")
@@ -37,6 +44,10 @@ while play_again
     if active_player.victory?
       active_player.score_up
       puts "\nPlayer #{active_player.mark} wins, congratulations!"
+      break
+    end
+    if board.full?
+      puts "\nNo more available tiles in the board. It's a tie!"
       break
     end
     active_player = active_player == userX ? userO : userX
