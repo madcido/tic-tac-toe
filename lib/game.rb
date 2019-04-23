@@ -19,6 +19,23 @@ class Game
     end
   end
 
+  def restart?
+    loop do
+      puts "\nPlay again? Y/N"
+      input = gets.chomp.upcase
+      if input == "Y" || input == "YES"
+        reset
+        return true
+      elsif input == "N" || input == "NO"
+        return false
+      else
+        puts "Invalid input. Please type Y or N."
+      end
+    end
+  end
+
+  private
+
   def get_input
     loop do
       puts "\nPlayer #{@active_player.mark}, choose a tile!"
@@ -59,22 +76,6 @@ class Game
     @active_player = @active_player == @p1 ? @p2 : @p1
   end
 
-  def restart?
-    loop do
-      puts "\nPlay again? Y/N"
-      input = gets.chomp.upcase
-      if input == "Y" || input == "YES"
-        reset
-        return true
-      elsif input == "N" || input == "NO"
-        return false
-      else
-        puts "Invalid input. Please type Y or N."
-      end
-    end
-  end
-
-  private
   def valid?(input)
     if 1 <= input && input <= 9
       @p1.inputs.each { |x| return false if input == x }
