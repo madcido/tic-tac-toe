@@ -8,6 +8,17 @@ class Game
     @active_player = rand()*10 < 5 ? @p2 : @p1
   end
 
+  def cycle
+    loop do
+      change_active_player
+      get_input
+      save_input
+      show(@board)
+      break if victory?
+      break if tie?
+    end
+  end
+
   def get_input
     loop do
       puts "\nPlayer #{@active_player.mark}, choose a tile!"
@@ -18,6 +29,9 @@ class Game
         puts "Invalid input. Please choose a valid tile."
       end
     end
+  end
+
+  def save_input
     @active_player.inputs << @chosen_tile
     @board.tiles[@chosen_tile-1] = @active_player.mark
   end

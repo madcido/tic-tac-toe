@@ -13,13 +13,7 @@ game = Game.new(userX, userO, board)
 
 loop do
   show(board)
-  loop do
-    game.change_active_player
-    game.get_input
-    show(board)
-    break if game.victory?
-    break if game.tie?
-  end
+  game.cycle
   break unless game.restart?
 end
 
