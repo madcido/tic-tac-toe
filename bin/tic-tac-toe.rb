@@ -1,20 +1,21 @@
 #!/usr/bin/env ruby
-require '../lib/board.rb'
-require '../lib/player.rb'
-require '../lib/game.rb'
-require '../lib/ui.rb'
+require_relative '../lib/board.rb'
+require_relative '../lib/player.rb'
+require_relative '../lib/game.rb'
+require_relative '../lib/ui.rb'
 include UI
 
 welcome_msg
 
 userX = Player.new("X")
 userO = Player.new("O")
-game = Game.new(userX, userO)
 
 loop do
+  board = Board.new
+  game = Game.new(userX, userO, board)
   show(game.board)
   game.cycle
-  break unless game.restart?
+  break unless restart?(userX, userO)
 end
 
 end_msg(userX,userO)

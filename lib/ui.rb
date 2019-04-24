@@ -49,6 +49,22 @@ module UI
     puts "\nNo more available tiles in the board. It's a tie!"
   end
 
+  def restart?(p1, p2)
+    loop do
+      puts "\nPlay again? Y/N"
+      input = gets.chomp.upcase
+      if input == "Y" || input == "YES"
+        p1.reset_inputs
+        p2.reset_inputs
+        return true
+      elsif input == "N" || input == "NO"
+        return false
+      else
+        puts "Invalid input. Please type Y or N."
+      end
+    end
+  end
+
   def end_msg(p1, p2)
     puts "\n**************************************************"
     puts "\nGame over, final score:"
