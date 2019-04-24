@@ -3,16 +3,16 @@ require '../lib/board.rb'
 require '../lib/player.rb'
 require '../lib/game.rb'
 require '../lib/ui.rb'
+include UI
 
 welcome_msg
 
 userX = Player.new("X")
 userO = Player.new("O")
-board = Board.new
-game = Game.new(userX, userO, board)
+game = Game.new(userX, userO)
 
 loop do
-  show(board)
+  show(game.board)
   game.cycle
   break unless game.restart?
 end
