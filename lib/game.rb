@@ -1,6 +1,4 @@
 class Game
-  attr_reader :board
-
   def initialize(p1, p2, board)
     @p1 = p1
     @p2 = p2
@@ -11,18 +9,28 @@ class Game
   def cycle
     loop do
       change_active_player
-      @active_player.turn(self)
-      show(@board)
+      player_turn(@active_player, @board)
       if victory?(@active_player)
         @active_player.score_up
         win_msg(@active_player)
         break
       end
-      if tie?
+      if tie?(@board)
         tie_msg
         break
       end
     end
+  end
+
+  def player_turn(player, board)
+    loop do
+      @chosen_tile = get_input(player)
+      break if valid?(@chosen_tile)
+      invalid_input_msg
+    end
+    player.save(@chosen_tile)
+    board.write(@chosen_tile, player.mark)
+    show(board)
   end
 
   def victory?(player)
@@ -31,7 +39,7 @@ class Game
     false
   end
 
-  def tie?
+  def tie?(board)
     return true if board.full?
     false
   end

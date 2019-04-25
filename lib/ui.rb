@@ -28,17 +28,13 @@ module UI
     puts " #{board.tiles[6]} | #{board.tiles[7]} | #{board.tiles[8]} "
   end
 
-  def get_input(player, game)
-    loop do
-      puts "\nPlayer #{player.mark}, choose a tile!"
-      @chosen_tile = gets.chomp.to_i
-      if game.valid?(@chosen_tile)
-        break
-      else
-        puts "Invalid input. Please choose a valid tile."
-      end
-    end
-    @chosen_tile
+  def get_input(player)
+    puts "\nPlayer #{player.mark}, choose a tile!"
+    @chosen_tile = gets.chomp.to_i
+  end
+
+  def invalid_input_msg
+    puts "Invalid input. Please choose a valid tile."
   end
 
   def win_msg(player)
@@ -49,13 +45,11 @@ module UI
     puts "\nNo more available tiles in the board. It's a tie!"
   end
 
-  def restart?(p1, p2)
+  def restart?
     loop do
       puts "\nPlay again? Y/N"
       input = gets.chomp.upcase
       if input == "Y" || input == "YES"
-        p1.reset_inputs
-        p2.reset_inputs
         return true
       elsif input == "N" || input == "NO"
         return false

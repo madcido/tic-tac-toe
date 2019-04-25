@@ -6,13 +6,7 @@ class Player
     @score = 0
     @inputs = []
   end
-
-  def turn(game)
-    @chosen_tile = get_input(self, game)
-    save(@chosen_tile)
-    game.board.write(@chosen_tile, @mark)
-  end
-
+  
   def save(input)
     @inputs << input
   end

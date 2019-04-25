@@ -9,13 +9,16 @@ welcome_msg
 
 userX = Player.new("X")
 userO = Player.new("O")
+board = Board.new
 
 loop do
-  board = Board.new
   game = Game.new(userX, userO, board)
-  show(game.board)
+  show(board)
   game.cycle
-  break unless restart?(userX, userO)
+  break unless restart?
+  board = Board.new
+  userX.reset_inputs
+  userO.reset_inputs
 end
 
 end_msg(userX,userO)
