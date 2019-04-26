@@ -2,7 +2,7 @@ Microverse Ruby project: OOP
 
 Assignment: build a tic-tac-toe game on the command line where two human players can play against each other and the board is displayed in between turns
 
-Author: Fabio Carmo / Daniel Montiel
+Author: <a href="https://github.com/madcido">Fabio Carmo</a> / <a href="https://github.com/danmontielh">Daniel Montiel</a>
 
 
 
